@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvt.microservice.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.jvt.microservice.domain.User">
+        <result column="CODE" property="code" />
+        <result column="NAME" property="name" />
+        <result column="PWD" property="pwd" />
+        <result column="EMAIL" property="email" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,code,name,pwd,email,state,sort,add_time as addTime,fk_add_user_id as fkAddUserId,fk_add_user_name as fkAddUserName
+    </sql>
+    <select id="getInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from dt_user
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from dt_user
+        <where>
+            <if test="keyword!=null">
+                name like #{keyword}
+            </if>
+        </where>
+    </select>
+    <insert id="addInfo" parameterType="com.jvt.microservice.domain.User">
+        insert into dt_user(id,code,name,pwd,email,state,sort,add_time,fk_add_user_id,fk_add_user_name)
+        values(#{id},#{code},#{name},#{pwd},#{email},#{state},#{sort},#{addTime},#{fkAddUserId},#{fkAddUserName})
+    </insert>
+    <update id="updateInfo" parameterType="com.jvt.microservice.domain.User">
+        update dt_user
+        <set>
+            code=#{code},name=#{name},pwd=#{pwd},email=#{email},state=#{state},sort=#{sort}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+    <delete id="delInfo" parameterType="java.lang.String">
+        delete form dt_user
+        <where>
+            id=#{id}
+        </where>
+    </delete>
+</mapper>
