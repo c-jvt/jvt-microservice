@@ -43,20 +43,21 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
             boolean excludeSelf = validationUnique.excludeSelf();
             boolean isExistContinue = validationUnique.isExistContinue();
             String paramValueJSON = request.getAttribute("_validationUnique").toString();
-
-            String validationUniqueJSON = getValidationUniqueInfo("ValidationUnique.properties", key[0]);
-            ResultBody resultBody = jvtService.isFieldValueExist(validationUniqueJSON, excludeSelf, paramValueJSON);
-
-            //存在不继续||不存在不继续
-            if ((isExistContinue && resultBody.getCode().equals(GlobalErrorInfoEnum.FIELD_VALUE_NOT_EXIST.getCode()))
-                    || (!isExistContinue && resultBody.getCode().equals(GlobalErrorInfoEnum.FIELD_VALUE_EXIST.getCode()))) {
-                Gson gs = new Gson();
-                String data = gs.toJson(resultBody);
-                OutputStream outputStream = response.getOutputStream();//获取OutputStream输出流
-                response.setHeader("content-type", "text/html;charset=UTF-8");
-                byte[] dataByteArr = data.getBytes("UTF-8");//将字符转换成字节数组，指定以UTF-8编码进行转换
-                outputStream.write(dataByteArr);//使用OutputStream流向客户端输出字节数组
-                return false;
+            ResultBody resultBody = new ResultBody();
+            for (String _key : key) {
+                String validationUniqueJSON = getValidationUniqueInfo("ValidationUnique.properties", _key);
+                resultBody = jvtService.isFieldValueExist(validationUniqueJSON, excludeSelf, paramValueJSON);
+                //存在不继续||不存在不继续
+                if ((isExistContinue && resultBody.getCode().equals(GlobalErrorInfoEnum.FIELD_VALUE_NOT_EXIST.getCode()))
+                        || (!isExistContinue && resultBody.getCode().equals(GlobalErrorInfoEnum.FIELD_VALUE_EXIST.getCode()))) {
+                    Gson gs = new Gson();
+                    String data = gs.toJson(resultBody);
+                    OutputStream outputStream = response.getOutputStream();//获取OutputStream输出流
+                    response.setHeader("content-type", "text/html;charset=UTF-8");
+                    byte[] dataByteArr = data.getBytes("UTF-8");//将字符转换成字节数组，指定以UTF-8编码进行转换
+                    outputStream.write(dataByteArr);//使用OutputStream流向客户端输出字节数组
+                    return false;
+                }
             }
         }
 
@@ -72,8 +73,7 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
             in = JVTController.class.getClassLoader().getResourceAsStream(fileNamePath);
             props.load(in);
             String value = props.getProperty(key);
-            // 有乱码时要进行重新编码
-            // new String(props.getProperty("key").getBytes("ISO-8859-1"), "GBK");
+            value = new String(value.getBytes("ISO-8859-1"), "GBK");//解决中文乱码
             return value;
         } catch (IOException e) {
             e.printStackTrace();

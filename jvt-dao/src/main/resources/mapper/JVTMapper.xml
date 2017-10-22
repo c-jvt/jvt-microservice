@@ -8,7 +8,7 @@
             ${column}=#{columnValue}
             <choose>
                 <when test="excludeSelf==1">
-                    and ${primaryKey}!=#{primaryKeyValue}
+                    and ${primaryKeyColumn}!=#{primaryKeyValue}
                 </when>
             </choose>
         </where>
