@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jvt.microservice.dao.AdminDao">
     <resultMap id="BaseResultMap" type="com.jvt.microservice.domain.Admin">
-        <result column="CODE" property="code" />
-        <result column="NAME" property="name" />
-        <result column="PWD" property="pwd" />
-        <result column="SALT" property="salt" />
-        <result column="EMAIL" property="email" />
+        <result column="CODE" property="code"/>
+        <result column="NAME" property="name"/>
+        <result column="PWD" property="pwd"/>
+        <result column="SALT" property="salt"/>
+        <result column="EMAIL" property="email"/>
     </resultMap>
     <sql id="Base_Column_List">
         id,code,name,pwd,salt,email,state,sort,add_time as addTime
@@ -28,24 +28,33 @@
                 name like #{keyword}
             </if>
         </where>
-     </select>
-     <insert id="addInfo" parameterType="com.jvt.microservice.domain.Admin">
+    </select>
+    <insert id="addInfo" parameterType="com.jvt.microservice.domain.Admin">
         insert into DT_ADMIN(id,code,name,pwd,salt,email,state,sort,add_time)
         values(#{id},#{code},#{name},#{pwd},#{salt},#{email},#{state},#{sort},#{addTime})
      </insert>
-     <update id="updateInfo" parameterType="com.jvt.microservice.domain.Admin">
+    <update id="updateInfo" parameterType="com.jvt.microservice.domain.Admin">
         update DT_ADMIN
         <set>
-            code=#{code},name=#{name},pwd=#{pwd},salt=#{salt},email=#{email},state=#{state},sort=#{sort}
+            code=#{code},name=#{name},email=#{email},state=#{state},sort=#{sort}
         </set>
         <where>
             id=#{id}
         </where>
-     </update>
-     <delete id="delInfo" parameterType="java.lang.String">
+    </update>
+    <update id="updatePwd" parameterType="java.util.Map">
+        update DT_ADMIN
+        <set>
+            pwd=#{pwd},salt=#{salt}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+    <delete id="delInfo" parameterType="java.lang.String">
         delete form DT_ADMIN
         <where>
             id=#{id}
         </where>
-     </delete>
+    </delete>
 </mapper>
