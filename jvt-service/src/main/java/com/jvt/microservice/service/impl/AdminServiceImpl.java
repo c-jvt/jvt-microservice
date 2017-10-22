@@ -9,43 +9,43 @@ import com.jvt.microservice.domain.out.ResultBody;
 import com.jvt.microservice.infrastructure.mybatis.SqlUtil;
 import com.jvt.microservice.infrastructure.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.jvt.microservice.dao.MenuDao;
-import com.jvt.microservice.domain.Menu;
-import com.jvt.microservice.service.MenuService;
+import com.jvt.microservice.dao.AdminDao;
+import com.jvt.microservice.domain.Admin;
+import com.jvt.microservice.service.AdminService;
 
 @Service
-public class MenuServiceImpl implements MenuService{
+public class AdminServiceImpl implements AdminService{
     @Autowired
-    private MenuDao menuDao;
+    private AdminDao adminDao;
     
     public ResultBody getInfo(String id) {
-        Menu menu=menuDao.getInfo(id);
-        ResultBody resultBody = new ResultBody(menu);
+        Admin admin=adminDao.getInfo(id);
+        ResultBody resultBody = new ResultBody(admin);
         return resultBody;
     }
     
     public ResultBody getList(String keyword,PageRequest pageRequest){
         Page<?> page = PageUtil.startPageAllowNull(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<Menu> menuList = menuDao.getList(SqlUtil.likeEscapeH(keyword));
-        PageResult<Menu> pageList = new PageResult<Menu>(menuList, page.getTotal());
+        List<Admin> adminList = adminDao.getList(SqlUtil.likeEscapeH(keyword));
+        PageResult<Admin> pageList = new PageResult<Admin>(adminList, page.getTotal());
         ResultBody resultBody = new ResultBody(pageList);
         return resultBody;
     }
     
-    public ResultBody addInfo(Menu menu) {
-        int num = menuDao.addInfo(menu);
+    public ResultBody addInfo(Admin admin) {
+        int num = adminDao.addInfo(admin);
         ResultBody resultBody = new ResultBody(num);
         return resultBody;
     }
     
-    public ResultBody updateInfo(Menu menu){
-        int num = menuDao.updateInfo(menu);
+    public ResultBody updateInfo(Admin admin){
+        int num = adminDao.updateInfo(admin);
         ResultBody resultBody = new ResultBody(num);
         return resultBody;
     }
     
     public ResultBody delInfo(String id) {
-        int num = menuDao.delInfo(id);
+        int num = adminDao.delInfo(id);
         ResultBody resultBody = new ResultBody(num);
         return resultBody;
     }   

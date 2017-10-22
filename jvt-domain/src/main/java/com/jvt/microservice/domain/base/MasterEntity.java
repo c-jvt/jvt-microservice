@@ -36,28 +36,4 @@ public class MasterEntity extends BaseEntity {
     public Date getAddTime() {
         return this.addTime;
     }
-
-    //记录新增人编码
-    private String fkAddUserId;
-
-    public void setFkAddUserId(String fkAddUserId) {
-        this.fkAddUserId = fkAddUserId;
-    }
-
-    public String getFkAddUserId() {
-        return fkAddUserId;
-    }
-
-    //记录新增人名称
-    private String fkAddUserName;
-
-    public void setFkAddUserName(String fkAddUserName) {
-        this.fkAddUserName = fkAddUserName;
-    }
-
-    public String getFkAddUserName() {
-        return this.fkAddUserName;
-    }
-
-
 }

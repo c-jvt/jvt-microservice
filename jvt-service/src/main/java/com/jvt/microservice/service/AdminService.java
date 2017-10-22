@@ -1,16 +1,16 @@
 package com.jvt.microservice.service;
 import com.jvt.microservice.domain.base.PageRequest;
 import com.jvt.microservice.domain.out.ResultBody;
-import com.jvt.microservice.domain.Menu;
+import com.jvt.microservice.domain.Admin;
 
-public interface MenuService {
+public interface AdminService {
     ResultBody getInfo(String id);
     
     ResultBody getList(String keyword, PageRequest pageRequest);
     
-    ResultBody addInfo(Menu menu);
+    ResultBody addInfo(Admin admin);
     
-    ResultBody updateInfo(Menu menu);
+    ResultBody updateInfo(Admin admin);
     
     ResultBody delInfo(String id);
 }
