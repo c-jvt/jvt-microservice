@@ -17,6 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2 {
     @Bean
     public Docket createRestApi(){
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
@@ -25,6 +26,7 @@ public class Swagger2 {
                 .build();
     }
     private ApiInfo apiInfo() {
+
         return new ApiInfoBuilder()
                 .title("JVT 可视化构建")
                 .description("JVT 可视化构建 相关文章关注：http://www.baidu.com")
@@ -32,5 +34,6 @@ public class Swagger2 {
                 .contact("lqh")
                 .version("1.0")
                 .build();
+
     }
 }

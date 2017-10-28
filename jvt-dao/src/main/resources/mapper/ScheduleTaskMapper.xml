@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvt.microservice.dao.ScheduleTaskDao">
+    <resultMap id="BaseResultMap" type="com.jvt.microservice.domain.ScheduleTask">
+        <result column="NAME" property="name" />
+        <result column="URL" property="url" />
+        <result column="ACTION_TYPE" property="actionType" />
+        <result column="TYPE" property="type" />
+        <result column="DATE_TYPE" property="dateType" />
+        <result column="CONTENT" property="content" />
+        <result column="RULE" property="rule" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,name,url,action_type as actionType,type,date_type as dateType,content,rule,state,sort,add_time as addTime
+    </sql>
+    <select id="getInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_SCHEDULE_TASK
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_SCHEDULE_TASK
+        <where>
+            <if test="keyword!=null">
+                name like #{keyword}
+            </if>
+        </where>
+     </select>
+     <insert id="addInfo" parameterType="com.jvt.microservice.domain.ScheduleTask">
+        insert into DT_SCHEDULE_TASK(id,name,url,action_type,type,date_type,content,rule,state,sort,add_time)
+        values(#{id},#{name},#{url},#{actionType},#{type},#{dateType},#{content},#{rule},#{state},#{sort},#{addTime})
+     </insert>
+     <update id="updateInfo" parameterType="com.jvt.microservice.domain.ScheduleTask">
+        update DT_SCHEDULE_TASK
+        <set>
+            name=#{name},url=#{url},action_type=#{actionType},type=#{type},date_type=#{dateType},content=#{content},rule=#{rule},state=#{state},sort=#{sort}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+     </update>
+     <delete id="delInfo" parameterType="java.lang.String">
+        delete from DT_SCHEDULE_TASK
+        <where>
+            id=#{id}
+        </where>
+     </delete>
+</mapper>

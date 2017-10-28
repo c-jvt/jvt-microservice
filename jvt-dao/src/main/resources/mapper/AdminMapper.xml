@@ -52,7 +52,7 @@
         </where>
     </update>
     <delete id="delInfo" parameterType="java.lang.String">
-        delete form DT_ADMIN
+        delete from DT_ADMIN
         <where>
             id=#{id}
         </where>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvt.microservice.dao.ComponentTemplateGroupDao">
+    <resultMap id="BaseResultMap" type="com.jvt.microservice.domain.ComponentTemplateGroup">
+        <result column="NAME" property="name" />
+        <result column="DESCR" property="descr" />
+        <result column="TYPE" property="type" />
+        <result column="PID" property="pid" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,name,descr,type,pid,state,sort,add_time as addTime
+    </sql>
+    <select id="getInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_COMPONENT_TEMPLATE_GROUP
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_COMPONENT_TEMPLATE_GROUP
+        <where>
+            <if test="keyword!=null">
+                name like #{keyword}
+            </if>
+        </where>
+     </select>
+     <insert id="addInfo" parameterType="com.jvt.microservice.domain.ComponentTemplateGroup">
+        insert into DT_COMPONENT_TEMPLATE_GROUP(id,name,descr,type,pid,state,sort,add_time)
+        values(#{id},#{name},#{descr},#{type},#{pid},#{state},#{sort},#{addTime})
+     </insert>
+     <update id="updateInfo" parameterType="com.jvt.microservice.domain.ComponentTemplateGroup">
+        update DT_COMPONENT_TEMPLATE_GROUP
+        <set>
+            name=#{name},descr=#{descr},type=#{type},pid=#{pid},state=#{state},sort=#{sort}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+     </update>
+     <delete id="delInfo" parameterType="java.lang.String">
+        delete from DT_COMPONENT_TEMPLATE_GROUP
+        <where>
+            id=#{id}
+        </where>
+     </delete>
+</mapper>

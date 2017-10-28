@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvt.microservice.dao.ComponentTemplateDao">
+    <resultMap id="BaseResultMap" type="com.jvt.microservice.domain.ComponentTemplate">
+        <result column="NAME" property="name" />
+        <result column="DESCR" property="descr" />
+        <result column="HTML_TEMPLATE_URL" property="htmlTemplateUrl" />
+        <result column="STYLE_TEMPLATE_URL" property="styleTemplateUrl" />
+        <result column="JS_PARAM_TEMPLATE_URL" property="jsParamTemplateUrl" />
+        <result column="IMAGE_URL" property="imageUrl" />
+        <result column="GROUP_ID" property="groupId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,name,descr,html_template_url as htmlTemplateUrl,style_template_url as styleTemplateUrl,js_param_template_url as jsParamTemplateUrl,image_url as imageUrl,group_id as groupId,state,sort,add_time as addTime
+    </sql>
+    <select id="getInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_COMPONENT_TEMPLATE
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_COMPONENT_TEMPLATE
+        <where>
+            <if test="keyword!=null">
+                name like #{keyword}
+            </if>
+        </where>
+     </select>
+     <insert id="addInfo" parameterType="com.jvt.microservice.domain.ComponentTemplate">
+        insert into DT_COMPONENT_TEMPLATE(id,name,descr,html_template_url,style_template_url,js_param_template_url,image_url,group_id,state,sort,add_time)
+        values(#{id},#{name},#{descr},#{htmlTemplateUrl},#{styleTemplateUrl},#{jsParamTemplateUrl},#{imageUrl},#{groupId},#{state},#{sort},#{addTime})
+     </insert>
+     <update id="updateInfo" parameterType="com.jvt.microservice.domain.ComponentTemplate">
+        update DT_COMPONENT_TEMPLATE
+        <set>
+            name=#{name},descr=#{descr},html_template_url=#{htmlTemplateUrl},style_template_url=#{styleTemplateUrl},js_param_template_url=#{jsParamTemplateUrl},image_url=#{imageUrl},group_id=#{groupId},state=#{state},sort=#{sort}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+     </update>
+     <delete id="delInfo" parameterType="java.lang.String">
+        delete from DT_COMPONENT_TEMPLATE
+        <where>
+            id=#{id}
+        </where>
+     </delete>
+</mapper>

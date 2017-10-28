@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping(value = "/admin")
-@Api(tags = {"02 Admin Controller"}, description = "Admin接口")
+@Api(tags = {"01 Admin Controller"}, description = "管理员接口")
 public class AdminController {
 
 
