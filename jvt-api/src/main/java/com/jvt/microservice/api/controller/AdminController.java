@@ -47,7 +47,7 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "新增Admin", notes = "新增Admin")
     @ValidationUnique(key = {"admin.code", "admin.email"}, excludeSelf = false, isExistContinue = false)
-    public ResultBody addAdmin(@Valid @RequestBody Admin admin) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public ResultBody addAdmin(@Valid @RequestBody Admin admin) {
         return adminService.addInfo(admin);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.Page;
-import com.jvt.microservice.infrastructure.encryption.Md5Util;
+import com.jvt.microservice.infrastructure.encryption.MD5Util;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Service;
 import com.jvt.microservice.domain.base.PageResult;
@@ -39,10 +39,10 @@ public class AdminServiceImpl implements AdminService {
         return resultBody;
     }
 
-    public ResultBody addInfo(Admin admin) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public ResultBody addInfo(Admin admin) {
         admin.setSalt(Admin.autoSalt());
         String pwd = admin.getPwd() + admin.getSalt();
-        admin.setPwd(Md5Util.EncoderByMd5(pwd));
+        admin.setPwd(MD5Util.EncoderByMd5(pwd));
         int num = adminDao.addInfo(admin);
 
         ResultBody resultBody = new ResultBody(num);
