@@ -1,7 +1,7 @@
 package com.jvt.microservice.api.core;
 
-import com.jvt.microservice.api.core.interceptor.MyHandlerInterceptor;
 import com.jvt.microservice.api.core.filter.ValidationUniqueFilter;
+import com.jvt.microservice.api.core.interceptor.ValidationUniqueInterceptor;
 import com.jvt.microservice.service.JVTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -23,7 +23,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         // 多个拦截器组成一个拦截器链
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
-        registry.addInterceptor(new MyHandlerInterceptor(jvtService)).addPathPatterns("/**");
+        registry.addInterceptor(new ValidationUniqueInterceptor(jvtService)).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

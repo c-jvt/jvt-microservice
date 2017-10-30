@@ -1,6 +1,5 @@
 package com.jvt.microservice.api.core.interceptor;
 
-
 import com.google.gson.Gson;
 import com.jvt.microservice.api.controller.JVTController;
 import com.jvt.microservice.domain.out.ResultBody;
@@ -18,27 +17,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-
-public class MyHandlerInterceptor implements HandlerInterceptor {
-
+public class ValidationUniqueInterceptor implements HandlerInterceptor {
     private final JVTService jvtService;
-
-    public MyHandlerInterceptor(JVTService jvtService) {
+    public ValidationUniqueInterceptor(JVTService jvtService) {
         this.jvtService = jvtService;
     }
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-
-
-        //验证是否登录||权限
-
         //自定义字段是否存在验证
         if (((HandlerMethod) handler).getMethod().isAnnotationPresent(ValidationUnique.class)) {
             //获取注解配置的包含和去除字段
             ValidationUnique validationUnique = ((HandlerMethod) handler).getMethodAnnotation(ValidationUnique.class);
-
             String[] key = validationUnique.key();
             boolean excludeSelf = validationUnique.excludeSelf();
             boolean isExistContinue = validationUnique.isExistContinue();
@@ -60,7 +50,6 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
                 }
             }
         }
-
         System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
         return true;// 只有返回true才会继续向下执行，返回false取消当前请求
     }
@@ -95,5 +84,4 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
             throws Exception {
         System.out.println(">>>MyInterceptor1>>>>>>>在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）");
     }
-
 }

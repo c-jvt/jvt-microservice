@@ -18,7 +18,7 @@ import java.net.URL;
 
 @RestController
 @RequestMapping(value = "/jvt")
-@Api(tags = "01 JVT Controller", description = "JVT基础接口")
+@Api(tags = "98 JVT Controller", description = "JVT基础接口")
 public class JVTController {
 
     @ApiOperation(value = "获取用户详细信息", notes = "根据url的id来获取用户详细信息")

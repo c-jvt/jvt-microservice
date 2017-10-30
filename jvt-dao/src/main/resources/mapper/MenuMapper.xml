@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvt.microservice.dao.MenuDao">
+    <resultMap id="BaseResultMap" type="com.jvt.microservice.domain.Menu">
+        <result column="CODE" property="code" />
+        <result column="NAME" property="name" />
+        <result column="HAS_ICON" property="hasIcon" />
+        <result column="ICON_URL" property="iconUrl" />
+        <result column="URL" property="url" />
+        <result column="PID" property="pid" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,code,name,has_icon as hasIcon,icon_url as iconUrl,url,pid,state,sort,add_time as addTime
+    </sql>
+    <select id="getInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_MENU
+        <where>
+            id = #{id}
+        </where>
+    </select>
+    <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_MENU
+        <where>
+            <if test="keyword!=null">
+                name like #{keyword}
+            </if>
+        </where>
+     </select>
+     <insert id="addInfo" parameterType="com.jvt.microservice.domain.Menu">
+        insert into DT_MENU(id,code,name,has_icon,icon_url,url,pid,state,sort,add_time)
+        values(#{id},#{code},#{name},#{hasIcon},#{iconUrl},#{url},#{pid},#{state},#{sort},#{addTime})
+     </insert>
+     <update id="updateInfo" parameterType="com.jvt.microservice.domain.Menu">
+        update DT_MENU
+        <set>
+            code=#{code},name=#{name},has_icon=#{hasIcon},icon_url=#{iconUrl},url=#{url},pid=#{pid},state=#{state},sort=#{sort}
+        </set>
+        <where>
+            id=#{id}
+        </where>
+     </update>
+     <delete id="delInfo" parameterType="java.lang.String">
+        delete from DT_MENU
+        <where>
+            id=#{id}
+        </where>
+     </delete>
+</mapper>

@@ -27,11 +27,9 @@ public class WechatController {
     @ApiOperation(value = "服务验证:公众号上配置", hidden = true)
     @RequestMapping(method = RequestMethod.GET)
     public void wechatService(PrintWriter out, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String result = "";
         /** 判断是否是微信接入激活验证，只有首次接入验证时才会收到echostr参数，此时需要把它直接返回 */
         String echostr = request.getParameter("echostr");
         if (echostr != null && echostr.length() > 1) {
-            result = echostr;
             out.print(echostr);
         }
     }

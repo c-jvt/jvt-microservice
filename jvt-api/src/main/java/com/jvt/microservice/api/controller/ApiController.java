@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api")
-@Api(tags = "98 API Controller", description = "API 管理中心")
+@Api(tags = "97 API Controller", description = "API 管理中心")
 public class ApiController {
     @ApiOperation(value = "获取平台内部API列表", notes = "获取平台内部API列表")
     @RequestMapping(value = "/inner/api", method = RequestMethod.GET)
