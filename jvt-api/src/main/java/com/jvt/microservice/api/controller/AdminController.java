@@ -5,12 +5,15 @@ import com.jvt.microservice.domain.base.PageRequest;
 import com.jvt.microservice.domain.out.ResultBody;
 import com.jvt.microservice.infrastructure.annotation.SerializedField;
 import com.jvt.microservice.infrastructure.annotation.ValidationUnique;
+import com.jvt.microservice.infrastructure.http.HttpRequest;
+import com.jvt.microservice.infrastructure.http.NetworkUtil;
 import com.jvt.microservice.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -25,8 +28,11 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    public ResultBody login(String userName, String pwd, String verifyCode) {
-        return null;
+
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String login(HttpServletRequest request, String userName, String pwd, String verifyCode) {
+        String ip = NetworkUtil.getIpAddress(request);
+        return ip;
     }
 
 
