@@ -8,9 +8,12 @@ import com.jvt.microservice.domain.Admin;
 public interface AdminService {
     ResultBody getInfo(String id);
 
+    Admin getInfoByName(String name);
+
     ResultBody getList(String keyword, PageRequest pageRequest);
 
     ResultBody addInfo(Admin admin);
+
 
     ResultBody updateInfo(Admin admin);
 

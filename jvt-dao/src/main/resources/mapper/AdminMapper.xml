@@ -19,6 +19,14 @@
             id = #{id}
         </where>
     </select>
+    <select id="getInfoByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from DT_ADMIN
+        <where>
+            name = #{name}
+        </where>
+    </select>
     <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>

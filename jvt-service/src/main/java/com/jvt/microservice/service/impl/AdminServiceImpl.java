@@ -1,14 +1,11 @@
 package com.jvt.microservice.service.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.github.pagehelper.Page;
 import com.jvt.microservice.infrastructure.encryption.MD5Util;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Service;
 import com.jvt.microservice.domain.base.PageResult;
 import com.jvt.microservice.domain.base.PageRequest;
@@ -31,6 +28,11 @@ public class AdminServiceImpl implements AdminService {
         return resultBody;
     }
 
+    public Admin getInfoByName(String name) {
+        Admin admin = adminDao.getInfoByName(name);
+        return admin;
+    }
+
     public ResultBody getList(String keyword, PageRequest pageRequest) {
         Page<?> page = PageUtil.startPageAllowNull(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<Admin> adminList = adminDao.getList(SqlUtil.likeEscapeH(keyword));
@@ -41,8 +43,8 @@ public class AdminServiceImpl implements AdminService {
 
     public ResultBody addInfo(Admin admin) {
         admin.setSalt(Admin.autoSalt());
-        String pwd = admin.getPwd() + admin.getSalt();
-        admin.setPwd(MD5Util.EncoderByMd5(pwd));
+/*        String pwd = admin.getPwd() + admin.getSalt();*/
+        admin.setPwd(MD5Util.EncoderByMd5(admin.getPwd()));
         int num = adminDao.addInfo(admin);
 
         ResultBody resultBody = new ResultBody(num);
