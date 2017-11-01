@@ -10,6 +10,8 @@ import com.jvt.microservice.domain.Admin;
 public interface AdminDao {
     Admin getInfo(@Param("id") String id);
 
+    Admin getInfoByName(@Param("name") String name);
+
     List<Admin> getList(@Param("keyword") String keyword);
 
     int addInfo(Admin admin);
