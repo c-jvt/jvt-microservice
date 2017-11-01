@@ -43,8 +43,8 @@ public class AdminServiceImpl implements AdminService {
 
     public ResultBody addInfo(Admin admin) {
         admin.setSalt(Admin.autoSalt());
-/*        String pwd = admin.getPwd() + admin.getSalt();*/
-        admin.setPwd(MD5Util.EncoderByMd5(admin.getPwd()));
+        String pwd = admin.getPwd() + admin.getSalt();
+        admin.setPwd(MD5Util.EncoderByMd5(pwd));
         int num = adminDao.addInfo(admin);
 
         ResultBody resultBody = new ResultBody(num);
