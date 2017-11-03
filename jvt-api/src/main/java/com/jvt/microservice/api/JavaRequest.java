@@ -98,8 +98,7 @@ public class JavaRequest {
         if (accessToken != null) {
             //获取到accessToken
             HashMap<String, String> map = new HashMap<>();
-
-            String testJson = f.sendMsg("/admin/list", accessToken, map);
+            String testJson = f.sendMsg("/user/list", accessToken, map);
             System.out.println(testJson);
         }
     }

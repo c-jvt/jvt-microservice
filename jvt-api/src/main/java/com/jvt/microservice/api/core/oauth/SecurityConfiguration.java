@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
@@ -25,7 +26,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    private AdminDetailService adminDetailService;
+    private UserDetailsService userDetailsService;
 
     //配置全局设置
     @Autowired
@@ -34,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         rss.setUserPropertyToUse("salt");
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setSaltSource(rss);
-        provider.setUserDetailsService(adminDetailService);
+        provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(new MyPasswordEncoder());
         auth.authenticationProvider(provider);
 
@@ -43,8 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //排除/hello路径拦截
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/admin/hello"
-                , "/doRegister"
+        web.ignoring().antMatchers("/doRegister"
                 , "/queryInitConfig"
                 , "/faq"
                 , "/invite"

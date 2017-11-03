@@ -1,14 +1,11 @@
 package com.jvt.microservice.domain;
 
 import com.jvt.microservice.domain.base.MasterEntity;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Random;
 
-public class Admin extends MasterEntity {
+public class User extends MasterEntity {
     //编码 or 账号
-    @NotEmpty(message = "{admin.code.NotEmpty}")
     private String code;
 
     public String getCode() {
@@ -20,7 +17,6 @@ public class Admin extends MasterEntity {
     }
 
     //名称
-    @NotEmpty(message = "{admin.name.NotEmpty}")
     private String name;
 
     public String getName() {
@@ -54,8 +50,6 @@ public class Admin extends MasterEntity {
     }
 
     //邮箱
-    @NotEmpty(message = "{admin.email.NotEmpty}")
-    @Email(message = "{email}")
     private String email;
 
     public String getEmail() {
@@ -64,6 +58,17 @@ public class Admin extends MasterEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    //用户角色ID
+    private String roleId;
+
+    public String getRoleId() {
+        return this.roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public static String autoSalt() {

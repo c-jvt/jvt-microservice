@@ -2,22 +2,18 @@ package com.jvt.microservice.service;
 
 import com.jvt.microservice.domain.base.PageRequest;
 import com.jvt.microservice.domain.out.ResultBody;
-import com.jvt.microservice.domain.Admin;
+import com.jvt.microservice.domain.User;
 
-
-public interface AdminService {
+public interface UserService {
     ResultBody getInfo(String id);
 
-    Admin getInfoByName(String name);
+    User getInfoByAccount(String account);
 
     ResultBody getList(String keyword, PageRequest pageRequest);
 
-    ResultBody addInfo(Admin admin);
+    ResultBody addInfo(User user);
 
-
-    ResultBody updateInfo(Admin admin);
-
-    ResultBody updatePwd(String id, String oldPwd, String newPwd, String rePwd);
+    ResultBody updateInfo(User user);
 
     ResultBody delInfo(String id);
 }
