@@ -1,10 +1,10 @@
 package com.jvt.microservice.api.controller;
 
 import com.google.gson.JsonParser;
+import com.jvt.microservice.domain.property.WechatProperties;
 import com.jvt.microservice.infrastructure.http.HttpRequest;
 import com.jvt.microservice.infrastructure.wechat.MessageUtil;
 import com.jvt.microservice.infrastructure.wechat.TextMessage;
-import com.jvt.microservice.domain.property.WechatProperies;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.Map;
 @Api(tags = "99 Wechat Controller", description = "微信接口")
 public class WechatController {
     @Autowired
-    private WechatProperies wechatProperies;
+    private WechatProperties wechatProperties;
 
     @ApiOperation(value = "服务验证:公众号上配置", hidden = true)
     @RequestMapping(method = RequestMethod.GET)
@@ -77,7 +77,7 @@ public class WechatController {
     @ApiOperation(value = "获取token")
     @RequestMapping(value = "token", method = RequestMethod.GET)
     public String getToken() {
-        String tokenParam = wechatProperies.getTokenParam();
+        String tokenParam = wechatProperties.getTokenParam();
         String tokenObject = HttpRequest.sendGet("https://api.weixin.qq.com/cgi-bin/token", tokenParam);
         String token = new JsonParser().parse(tokenObject).getAsJsonObject().get("access_token").getAsString();
         return token;

@@ -1,6 +1,9 @@
 package com.jvt.microservice.api.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.jvt.microservice.api.core.oauth.Token;
+import com.jvt.microservice.domain.property.SystemProperties;
 import com.jvt.microservice.infrastructure.annotation.SerializedField;
 
 import com.jvt.microservice.infrastructure.img.QrCode;
@@ -9,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +24,16 @@ import java.net.URL;
 @RequestMapping(value = "/jvt")
 @Api(tags = "98 JVT Controller", description = "JVT基础接口")
 public class JVTController {
+    @Autowired
+    SystemProperties systemProperties;
 
     @ApiOperation(value = "获取用户详细信息", notes = "根据url的id来获取用户详细信息")
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     @SerializedField(encode = true)
-    public String getToken(@RequestParam String code, @RequestParam String pwd) {
-        return code + pwd;
+    public JSONObject getToken(@RequestParam String account, @RequestParam String password) throws IOException {
+        Token token = new Token(systemProperties.getBasePath());
+        JSONObject jo = token.getAccessToken(account, password, "test", "test");
+        return jo;
     }
 
     @ApiOperation(value = "获取二维码", notes = "获取二维码")

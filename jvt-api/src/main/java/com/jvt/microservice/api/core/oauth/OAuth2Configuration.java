@@ -46,7 +46,7 @@ public class OAuth2Configuration {
                     .logoutSuccessHandler(customLogoutSuccessHandler)
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/admin/hello"
+                    .antMatchers("/jvt/token"
                             , "/doRegister"
                             , "/queryInitConfig"
                             , "/faq"
