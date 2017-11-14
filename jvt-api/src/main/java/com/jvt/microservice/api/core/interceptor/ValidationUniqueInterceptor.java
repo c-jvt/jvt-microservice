@@ -3,6 +3,7 @@ package com.jvt.microservice.api.core.interceptor;
 import com.google.gson.Gson;
 import com.jvt.microservice.api.controller.JVTController;
 import com.jvt.microservice.domain.out.ResultBody;
+import com.jvt.microservice.domain.property.SystemProperties;
 import com.jvt.microservice.infrastructure.annotation.ValidationUnique;
 import com.jvt.microservice.infrastructure.enums.GlobalErrorInfoEnum;
 import com.jvt.microservice.service.JVTService;
@@ -19,14 +20,22 @@ import java.util.Properties;
 
 public class ValidationUniqueInterceptor implements HandlerInterceptor {
     private final JVTService jvtService;
+
     public ValidationUniqueInterceptor(JVTService jvtService) {
         this.jvtService = jvtService;
     }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         //自定义字段是否存在验证
-        if (((HandlerMethod) handler).getMethod().isAnnotationPresent(ValidationUnique.class)) {
+        boolean isValidation = false;
+        try {
+            isValidation = ((HandlerMethod) handler).getMethod().isAnnotationPresent(ValidationUnique.class);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        if (isValidation) {
             //获取注解配置的包含和去除字段
             ValidationUnique validationUnique = ((HandlerMethod) handler).getMethodAnnotation(ValidationUnique.class);
             String[] key = validationUnique.key();

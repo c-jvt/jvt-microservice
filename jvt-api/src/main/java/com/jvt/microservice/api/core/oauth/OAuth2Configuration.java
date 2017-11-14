@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.sql.DataSource;
 
@@ -46,23 +47,10 @@ public class OAuth2Configuration {
                     .logoutSuccessHandler(customLogoutSuccessHandler)
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/admin/hello"
-                            , "/doRegister"
-                            , "/queryInitConfig"
-                            , "/faq"
-                            , "/invite"
-                            , "/register"
-                            , "/download"
-                            , "/doLogin"
-                            , "/doSms"
-                            , "/doDownloadUrl"
-                            , "/doResetPwd"
-                            , "/doRedirectUrl"
-                            , "/queryRank"
-                            , "/queryRankGold"
-                            , "/queryAdvList").permitAll()
-                    .antMatchers("/secure/**",
-                            "/**").authenticated();
+                    .antMatchers("/jvt/token", "wechat", "wechat/*").permitAll()
+                    .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()//就是这一行啦
+                    .antMatchers("/**").authenticated()
+                    .and().csrf().disable();
 
         }
 

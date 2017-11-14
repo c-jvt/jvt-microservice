@@ -44,20 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //排除/hello路径拦截
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/doRegister"
-                , "/queryInitConfig"
-                , "/faq"
-                , "/invite"
-                , "/register"
-                , "/download"
-                , "/doLogin"
-                , "/doSms"
-                , "/doDownloadUrl"
-                , "/doResetPwd"
-                , "/doRedirectUrl"
-                , "/queryRank"
-                , "/queryRankGold"
-                , "/queryAdvList");
+        web.ignoring().antMatchers("jvt/token","principal", "wechat", "wechat/*");
     }
 
     @Override

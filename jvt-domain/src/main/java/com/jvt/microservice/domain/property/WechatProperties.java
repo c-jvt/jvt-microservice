@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "wechat")
-public class WechatProperies {
+public class WechatProperties {
 
     private String appid;
 

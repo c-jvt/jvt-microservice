@@ -18,19 +18,6 @@ public class JavaRequest {
         this.url = url;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getGetAccessTokenUrl() {
-        return getAccessTokenUrl;
-    }
-
-
     public String getAccessToken(String username, String password, String id, String secret) throws IOException {
         // 设置代理服务器地址和端口
 
@@ -98,8 +85,8 @@ public class JavaRequest {
         if (accessToken != null) {
             //获取到accessToken
             HashMap<String, String> map = new HashMap<>();
-            String testJson = f.sendMsg("/user/list", accessToken, map);
-            System.out.println(testJson);
+            String testJson = f.sendMsg("/principal", accessToken, map);
+          /*  System.out.println(testJson);*/
         }
     }
 }
