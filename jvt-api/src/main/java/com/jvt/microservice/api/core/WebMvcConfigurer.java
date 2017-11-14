@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-/*@EnableWebMvc*/
 @Configuration
 public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
@@ -44,6 +43,4 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         bean.addUrlPatterns("/*");
         return bean;
     }
-
-
 }

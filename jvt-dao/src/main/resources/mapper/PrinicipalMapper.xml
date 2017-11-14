@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvt.microservice.dao.PrincipalDao">
+    <resultMap id="BaseResultMap" type="com.jvt.microservice.domain.Principal">
+        <result column="ID" property="id"/>
+        <result column="CODE" property="code"/>
+        <result column="NAME" property="name"/>
+        <result column="EMAIL" property="email"/>
+        <result column="ROLE_ID" property="roleId"/>
+        <result column="ROLE_NAME" property="roleName"/>
+    </resultMap>
+    <select id="getPrincipal" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT T1.ID as id,T1.NAME as name,T1.CODE as code,T1.EMAIL as email,T1.ROLE_ID AS roleId,T2.NAME as roleName
+        FROM DT_USER AS T1,DT_ROLE AS T2
+        <where>
+            T1.ROLE_ID=T2.ID AND T1.CODE=#{account} OR T1.EMAIL=#{account}
+        </where>
+    </select>
+</mapper>
